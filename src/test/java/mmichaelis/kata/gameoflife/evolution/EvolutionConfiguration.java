@@ -1,6 +1,6 @@
 package mmichaelis.kata.gameoflife.evolution;
 
-import mmichaelis.kata.gameoflife.Cell;
+import mmichaelis.kata.gameoflife.cell.Cell;
 import org.hamcrest.Matcher;
 
 /**

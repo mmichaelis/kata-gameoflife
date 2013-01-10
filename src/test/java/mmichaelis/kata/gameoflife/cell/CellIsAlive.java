@@ -1,4 +1,4 @@
-package mmichaelis.kata.gameoflife;
+package mmichaelis.kata.gameoflife.cell;
 
 import org.hamcrest.CustomTypeSafeMatcher;
 import org.hamcrest.Factory;

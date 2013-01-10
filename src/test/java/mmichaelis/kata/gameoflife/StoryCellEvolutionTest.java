@@ -1,5 +1,7 @@
 package mmichaelis.kata.gameoflife;
 
+import mmichaelis.kata.gameoflife.cell.Cell;
+import mmichaelis.kata.gameoflife.cell.CellProvider;
 import mmichaelis.kata.gameoflife.evolution.EvolutionConfiguration;
 import mmichaelis.kata.test.support.References;
 import org.junit.Test;
@@ -7,8 +9,8 @@ import org.mockito.Mockito;
 
 import javax.inject.Inject;
 
-import static mmichaelis.kata.gameoflife.CellIsAlive.cellIsAlive;
-import static mmichaelis.kata.gameoflife.CellIsDead.cellIsDead;
+import static mmichaelis.kata.gameoflife.cell.CellIsAlive.cellIsAlive;
+import static mmichaelis.kata.gameoflife.cell.CellIsDead.cellIsDead;
 import static mmichaelis.kata.test.support.References.ref;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assume.assumeTrue;

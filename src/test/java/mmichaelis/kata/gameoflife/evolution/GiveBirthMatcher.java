@@ -1,10 +1,10 @@
 package mmichaelis.kata.gameoflife.evolution;
 
-import mmichaelis.kata.gameoflife.Cell;
+import mmichaelis.kata.gameoflife.cell.Cell;
 import org.hamcrest.CustomTypeSafeMatcher;
 import org.hamcrest.Matchers;
 
-import static mmichaelis.kata.gameoflife.CellIsAlive.cellIsAlive;
+import static mmichaelis.kata.gameoflife.cell.CellIsAlive.cellIsAlive;
 import static org.hamcrest.Matchers.both;
 
 /**

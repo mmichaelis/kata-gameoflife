@@ -1,4 +1,4 @@
-package mmichaelis.kata.gameoflife;
+package mmichaelis.kata.gameoflife.cell;
 
 import org.springframework.beans.factory.BeanFactory;
 
