@@ -3,6 +3,7 @@ package mmichaelis.kata.gameoflife;
 import com.google.common.base.Objects;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Maps;
+import mmichaelis.kata.gameoflife.evolution.EvolutionConfiguration;
 import org.hamcrest.Matcher;
 
 import javax.inject.Inject;

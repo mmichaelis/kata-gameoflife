@@ -15,7 +15,7 @@
                           scope-resolver="org.springframework.context.annotation.Jsr330ScopeMetadataResolver"/>
 
   <bean id="evolutionConfiguration"
-        class="mmichaelis.kata.gameoflife.EvolutionConfiguration"
+        class="mmichaelis.kata.gameoflife.evolution.EvolutionConfiguration"
         scope="singleton">
     <property name="minimumLivingNeighbors" value="${minimum.living.neighbors}"/>
     <property name="maximumLivingNeighbors" value="${maximum.living.neighbors}"/>
