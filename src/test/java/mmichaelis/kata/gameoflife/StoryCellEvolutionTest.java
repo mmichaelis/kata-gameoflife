@@ -4,6 +4,7 @@ import mmichaelis.kata.test.support.References;
 import org.hamcrest.CustomTypeSafeMatcher;
 import org.hamcrest.Factory;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import static mmichaelis.kata.test.support.References.ref;
 import static org.junit.Assert.assertThat;
@@ -23,7 +24,7 @@ public class StoryCellEvolutionTest {
     final References.Reference<Integer> linkCountReference = ref();
     given_a_dead_cell_C(cellReference);
     given_minimum_link_count_N(linkCountReference);
-    then_cell_C_dies_with_less_than_N_links(cellReference, linkCountReference);
+    then_cell_C_dies_with_less_than_N_living_neighbors(cellReference, linkCountReference);
   }
 
   @Test
@@ -32,7 +33,7 @@ public class StoryCellEvolutionTest {
     final References.Reference<Integer> linkCountReference = ref();
     given_a_dead_cell_C(cellReference);
     given_maximum_link_count_N(linkCountReference);
-    then_cell_C_dies_with_more_than_N_links(cellReference, linkCountReference);
+    then_cell_C_dies_with_more_than_N_living_neighbors(cellReference, linkCountReference);
   }
 
   @Test
@@ -41,7 +42,7 @@ public class StoryCellEvolutionTest {
     final References.Reference<Integer> linkCountReference = ref();
     given_a_living_cell_C(cellReference);
     given_minimum_link_count_N(linkCountReference);
-    then_cell_C_dies_with_less_than_N_links(cellReference, linkCountReference);
+    then_cell_C_dies_with_less_than_N_living_neighbors(cellReference, linkCountReference);
   }
 
   @Test
@@ -50,7 +51,7 @@ public class StoryCellEvolutionTest {
     final References.Reference<Integer> linkCountReference = ref();
     given_a_living_cell_C(cellReference);
     given_maximum_link_count_N(linkCountReference);
-    then_cell_C_dies_with_more_than_N_links(cellReference, linkCountReference);
+    then_cell_C_dies_with_more_than_N_living_neighbors(cellReference, linkCountReference);
   }
 
   /* =======[ S T E P S ]======= */
@@ -82,27 +83,28 @@ public class StoryCellEvolutionTest {
     cellReference.get().evolve();
   }
 
-  private void when_cell_C_is_linked_to_N_cells(final References.Reference<Cell> cellReference, final int linkCount) {
+  private void when_cell_C_is_linked_to_N_living_cells(final References.Reference<Cell> cellReference, final int linkCount) {
     final Cell cell = cellReference.get();
     cell.unlinkAll();
     for (int i = 0; i < linkCount; i++) {
       final Direction direction = mock(Direction.class);
       final Cell target = mock(Cell.class);
+      Mockito.when(target.isAlive()).thenReturn(true);
       cell.linkTo(target, direction);
     }
   }
 
-  private void then_cell_C_dies_with_less_than_N_links(final References.Reference<Cell> cellReference, final References.Reference<Integer> linkCountReference) {
+  private void then_cell_C_dies_with_less_than_N_living_neighbors(final References.Reference<Cell> cellReference, final References.Reference<Integer> linkCountReference) {
     for (int i = 0; i < linkCountReference.get() - 1; i++) {
-      when_cell_C_is_linked_to_N_cells(cellReference, i);
+      when_cell_C_is_linked_to_N_living_cells(cellReference, i);
       when_cell_C_performs_an_evolution_step(cellReference);
       then_cell_C_dies(cellReference);
     }
   }
 
-  private void then_cell_C_dies_with_more_than_N_links(final References.Reference<Cell> cellReference, final References.Reference<Integer> linkCountReference) {
+  private void then_cell_C_dies_with_more_than_N_living_neighbors(final References.Reference<Cell> cellReference, final References.Reference<Integer> linkCountReference) {
     for (int i = linkCountReference.get() + 1; i <= MAXIMUM_LINK_TEST_COUNT; i++) {
-      when_cell_C_is_linked_to_N_cells(cellReference, i);
+      when_cell_C_is_linked_to_N_living_cells(cellReference, i);
       when_cell_C_performs_an_evolution_step(cellReference);
       then_cell_C_dies(cellReference);
     }
