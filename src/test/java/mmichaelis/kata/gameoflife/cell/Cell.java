@@ -1,6 +1,6 @@
 package mmichaelis.kata.gameoflife.cell;
 
-import mmichaelis.kata.gameoflife.Direction;
+import mmichaelis.kata.gameoflife.link.Direction;
 import org.hamcrest.Matcher;
 
 /**

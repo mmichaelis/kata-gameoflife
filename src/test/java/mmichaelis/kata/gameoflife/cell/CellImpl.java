@@ -3,7 +3,7 @@ package mmichaelis.kata.gameoflife.cell;
 import com.google.common.base.Objects;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Maps;
-import mmichaelis.kata.gameoflife.Direction;
+import mmichaelis.kata.gameoflife.link.Direction;
 import mmichaelis.kata.gameoflife.evolution.EvolutionConfiguration;
 import org.hamcrest.Matcher;
 

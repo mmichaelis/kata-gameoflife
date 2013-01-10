@@ -2,6 +2,7 @@ package mmichaelis.kata.gameoflife;
 
 import mmichaelis.kata.gameoflife.cell.Cell;
 import mmichaelis.kata.gameoflife.cell.CellImpl;
+import mmichaelis.kata.gameoflife.link.Direction;
 import mmichaelis.kata.test.support.References;
 import org.hamcrest.CustomTypeSafeMatcher;
 import org.hamcrest.Factory;

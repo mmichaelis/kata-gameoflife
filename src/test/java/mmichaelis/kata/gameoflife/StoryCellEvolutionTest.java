@@ -3,6 +3,7 @@ package mmichaelis.kata.gameoflife;
 import mmichaelis.kata.gameoflife.cell.Cell;
 import mmichaelis.kata.gameoflife.cell.CellProvider;
 import mmichaelis.kata.gameoflife.evolution.EvolutionConfiguration;
+import mmichaelis.kata.gameoflife.link.Direction;
 import mmichaelis.kata.test.support.References;
 import org.junit.Test;
 import org.mockito.Mockito;
