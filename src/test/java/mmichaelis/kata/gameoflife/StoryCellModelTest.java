@@ -1,13 +1,9 @@
 package mmichaelis.kata.gameoflife;
 
-import com.google.common.base.Objects;
-import com.google.common.collect.Maps;
 import mmichaelis.kata.test.support.References;
 import org.hamcrest.CustomTypeSafeMatcher;
 import org.hamcrest.Factory;
 import org.junit.Test;
-
-import java.util.Map;
 
 import static mmichaelis.kata.test.support.References.ref;
 import static org.junit.Assert.assertFalse;
@@ -83,38 +79,6 @@ public class StoryCellModelTest {
     final Direction direction = directionReference.get();
     cell.linkTo(target, direction);
     assertThat(cell, CellIsLinkedTo.cellIsLinkedTo(target, direction));
-  }
-
-  private static class CellImpl implements Cell {
-    private boolean alive;
-    private final Map<Direction, Cell> directedLinks = Maps.newHashMap();
-
-    @Override
-    public void setAlive(final boolean alive) {
-      this.alive = alive;
-    }
-
-    @Override
-    public boolean isAlive() {
-      return alive;
-    }
-
-    @Override
-    public void linkTo(final Cell target, final Direction direction) {
-      directedLinks.put(direction, target);
-    }
-
-    @Override
-    public Cell getLink(final Direction direction) {
-      return directedLinks.get(direction);
-    }
-
-    @Override
-    public String toString() {
-      return Objects.toStringHelper(this)
-              .add("alive", alive)
-              .toString();
-    }
   }
 
   private static class CellIsLinkedTo extends CustomTypeSafeMatcher<Cell> {
