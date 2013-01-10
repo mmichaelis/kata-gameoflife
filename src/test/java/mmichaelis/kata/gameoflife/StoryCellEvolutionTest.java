@@ -4,7 +4,12 @@ import mmichaelis.kata.test.support.References;
 import org.hamcrest.CustomTypeSafeMatcher;
 import org.hamcrest.Factory;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import javax.inject.Inject;
 
 import static mmichaelis.kata.test.support.References.ref;
 import static org.junit.Assert.assertThat;
@@ -14,6 +19,8 @@ import static org.mockito.Mockito.mock;
 /**
  * @since 1.0
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "classpath:/test-context.xml")
 public class StoryCellEvolutionTest {
 
   /* =======[ S C E N A R I O S ]======= */
@@ -56,9 +63,8 @@ public class StoryCellEvolutionTest {
 
   /* =======[ S T E P S ]======= */
 
-  private static final int MINIMUM_LINK_COUNT = 2;
-  private static final int MAXIMUM_LINK_COUNT = 3;
-  private static final int MAXIMUM_LINK_TEST_COUNT = MAXIMUM_LINK_COUNT + 1;
+  @Inject
+  private EvolutionConfiguration evolutionConfiguration;
 
   private void given_a_dead_cell_C(final References.Reference<Cell> cellReference) {
     cellReference.set(new CellImpl());
@@ -72,11 +78,11 @@ public class StoryCellEvolutionTest {
   }
 
   private void given_minimum_link_count_N(final References.Reference<Integer> linkCountReference) {
-    linkCountReference.set(MINIMUM_LINK_COUNT);
+    linkCountReference.set(evolutionConfiguration.getMinimumLivingNeighbors());
   }
 
   private void given_maximum_link_count_N(final References.Reference<Integer> linkCountReference) {
-    linkCountReference.set(MAXIMUM_LINK_COUNT);
+    linkCountReference.set(evolutionConfiguration.getMaximumLivingNeighbors());
   }
 
   private void when_cell_C_performs_an_evolution_step(final References.Reference<Cell> cellReference) {
@@ -103,7 +109,7 @@ public class StoryCellEvolutionTest {
   }
 
   private void then_cell_C_dies_with_more_than_N_living_neighbors(final References.Reference<Cell> cellReference, final References.Reference<Integer> linkCountReference) {
-    for (int i = linkCountReference.get() + 1; i <= MAXIMUM_LINK_TEST_COUNT; i++) {
+    for (int i = linkCountReference.get() + 1; i <= evolutionConfiguration.getMaximumLivingNeighbors() + 1; i++) {
       when_cell_C_is_linked_to_N_living_cells(cellReference, i);
       when_cell_C_performs_an_evolution_step(cellReference);
       then_cell_C_dies(cellReference);
