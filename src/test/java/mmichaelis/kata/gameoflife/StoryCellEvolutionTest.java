@@ -72,6 +72,18 @@ public class StoryCellEvolutionTest extends BaseTestCase {
     then_cell_C_stays_alive_with_enough_living_neighbors(cellReference, minimumReference, maximumReference);
   }
 
+  @Test
+  public void scenario_dead_cell_gives_birth_on_evolution_with_enough_neighboring_cells() throws Exception {
+    final References.Reference<Cell> cellReference = ref();
+    final References.Reference<Integer> maximumReference = ref();
+    final References.Reference<Integer> minimumReference = ref();
+
+    given_a_dead_cell_C(cellReference);
+    given_minimum_birth_link_count_N(minimumReference);
+    given_maximum_link_count_N(maximumReference);
+    then_cell_C_gives_birth_with_enough_living_neighbors(cellReference, minimumReference, maximumReference);
+  }
+
   /* =======[ S T E P S ]======= */
 
   @Inject
@@ -96,6 +108,10 @@ public class StoryCellEvolutionTest extends BaseTestCase {
 
   private void given_maximum_link_count_N(final References.Reference<Integer> linkCountReference) {
     linkCountReference.set(evolutionConfiguration.getMaximumLivingNeighbors());
+  }
+
+  private void given_minimum_birth_link_count_N(final References.Reference<Integer> minimumReference) {
+    minimumReference.set(evolutionConfiguration.getMinimumLivingNeighborsForBirth());
   }
 
   private void when_cell_C_performs_an_evolution_step(final References.Reference<Cell> cellReference) {
@@ -133,11 +149,19 @@ public class StoryCellEvolutionTest extends BaseTestCase {
     for (int i = minimumReference.get(); i <= maximumReference.get(); i++) {
       when_cell_C_is_linked_to_N_living_cells(cellReference, i);
       when_cell_C_performs_an_evolution_step(cellReference);
-      then_cell_C_stays_alive(cellReference);
+      then_cell_C_is_alive(cellReference);
     }
   }
 
-  private void then_cell_C_stays_alive(final References.Reference<Cell> cellReference) {
+  private void then_cell_C_gives_birth_with_enough_living_neighbors(final References.Reference<Cell> cellReference, final References.Reference<Integer> minimumReference, final References.Reference<Integer> maximumReference) {
+    for (int i = minimumReference.get(); i <= maximumReference.get(); i++) {
+      when_cell_C_is_linked_to_N_living_cells(cellReference, i);
+      when_cell_C_performs_an_evolution_step(cellReference);
+      then_cell_C_is_alive(cellReference);
+    }
+  }
+
+  private void then_cell_C_is_alive(final References.Reference<Cell> cellReference) {
     assertThat(cellReference.get(), cellIsAlive());
   }
 
