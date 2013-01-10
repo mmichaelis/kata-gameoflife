@@ -3,7 +3,7 @@ package mmichaelis.kata.gameoflife;
 /**
 * @since 1.0
 */
-interface Cell {
+public interface Cell {
   void setAlive(boolean alive);
 
   boolean isAlive();
