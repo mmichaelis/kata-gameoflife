@@ -1,8 +1,5 @@
 package mmichaelis.kata.gameoflife;
 
-import javax.inject.Named;
-import javax.inject.Singleton;
-
 /**
  * @since 1.0
  */
