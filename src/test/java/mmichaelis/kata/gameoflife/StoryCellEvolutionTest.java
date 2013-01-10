@@ -6,7 +6,6 @@ import org.hamcrest.Factory;
 import org.junit.Test;
 
 import static mmichaelis.kata.test.support.References.ref;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assume.assumeTrue;
 import static org.mockito.Mockito.mock;
