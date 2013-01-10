@@ -14,6 +14,7 @@ import static mmichaelis.kata.gameoflife.cell.CellIsAlive.cellIsAlive;
 import static mmichaelis.kata.gameoflife.cell.CellIsDead.cellIsDead;
 import static mmichaelis.kata.test.support.References.ref;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assume.assumeThat;
 import static org.junit.Assume.assumeTrue;
 import static org.mockito.Mockito.mock;
 
@@ -99,7 +100,7 @@ public class StoryCellEvolutionTest extends BaseTestCase {
     final Cell cell = cellProvider.get();
     cell.setAlive(true);
     cellReference.set(cell);
-    assumeTrue(cell.isAlive());
+    assumeThat(cell, cellIsAlive());
   }
 
   private void given_minimum_link_count_N(final References.Reference<Integer> linkCountReference) {

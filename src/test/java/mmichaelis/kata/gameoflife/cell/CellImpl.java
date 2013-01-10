@@ -55,6 +55,9 @@ public class CellImpl implements Cell {
             || evolutionConfiguration.underPopulated().matches(this)) {
       setAlive(false);
     }
+    if (evolutionConfiguration.givingBirth().matches(this)) {
+      setAlive(true);
+    }
   }
 
   @Override
