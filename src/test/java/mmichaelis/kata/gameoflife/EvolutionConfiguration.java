@@ -5,6 +5,9 @@ import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 
 import static mmichaelis.kata.gameoflife.CellIsAlive.cellIsAlive;
+import static org.hamcrest.Matchers.both;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.lessThan;
 
 /**
  * @since 1.0
@@ -12,7 +15,7 @@ import static mmichaelis.kata.gameoflife.CellIsAlive.cellIsAlive;
 public class EvolutionConfiguration {
   private Integer minimumLivingNeighbors;
   private Integer maximumLivingNeighbors;
-  private String minimumLivingNeighborsForBirth;
+  private Integer minimumLivingNeighborsForBirth;
 
   public void setMinimumLivingNeighbors(final Integer minimumLivingNeighbors) {
     this.minimumLivingNeighbors = minimumLivingNeighbors;
@@ -38,11 +41,15 @@ public class EvolutionConfiguration {
     return new OverCrowdedMatcher(maximumLivingNeighbors);
   }
 
-  public void setMinimumLivingNeighborsForBirth(String minimumLivingNeighborsForBirth) {
+  public Matcher<Cell> givingBirth() {
+    return new GiveBirthMatcher(minimumLivingNeighborsForBirth, maximumLivingNeighbors);
+  }
+
+  public void setMinimumLivingNeighborsForBirth(final Integer minimumLivingNeighborsForBirth) {
     this.minimumLivingNeighborsForBirth = minimumLivingNeighborsForBirth;
   }
 
-  public String getMinimumLivingNeighborsForBirth() {
+  public Integer getMinimumLivingNeighborsForBirth() {
     return minimumLivingNeighborsForBirth;
   }
 
@@ -56,7 +63,25 @@ public class EvolutionConfiguration {
 
     @Override
     protected boolean matchesSafely(final Cell item) {
-      return Matchers.lessThan(item.countLinks(cellIsAlive())).matches(minimum);
+      return lessThan(minimum).matches(item.countLinks(cellIsAlive()));
+    }
+  }
+
+  private static class GiveBirthMatcher extends CustomTypeSafeMatcher<Cell> {
+    private final Integer minimum;
+    private final Integer maximum;
+
+    private GiveBirthMatcher(final Integer minimum, final Integer maximum) {
+      super(String.format("giving birth"));
+      this.minimum = minimum;
+      this.maximum = maximum;
+    }
+
+    @Override
+    protected boolean matchesSafely(final Cell item) {
+      return both(Matchers.greaterThanOrEqualTo(minimum))
+              .and(Matchers.lessThanOrEqualTo(maximum))
+              .matches(item.countLinks(cellIsAlive()));
     }
   }
 
@@ -70,7 +95,7 @@ public class EvolutionConfiguration {
 
     @Override
     protected boolean matchesSafely(final Cell item) {
-      return Matchers.greaterThan(item.countLinks(cellIsAlive())).matches(maximum);
+      return greaterThan(maximum).matches(item.countLinks(cellIsAlive()));
     }
   }
 }
