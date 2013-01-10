@@ -1,10 +1,13 @@
 package mmichaelis.kata.gameoflife;
 
 import com.google.common.base.Objects;
+import com.google.common.collect.Maps;
 import mmichaelis.kata.test.support.References;
 import org.hamcrest.CustomTypeSafeMatcher;
 import org.hamcrest.Factory;
 import org.junit.Test;
+
+import java.util.Map;
 
 import static mmichaelis.kata.test.support.References.ref;
 import static org.junit.Assert.assertFalse;
@@ -94,6 +97,7 @@ public class StoryCellModelTest {
 
   private static class CellImpl implements Cell {
     private boolean alive;
+    private final Map<Direction, Cell> directedLinks = Maps.newHashMap();
 
     @Override
     public void setAlive(final boolean alive) {
@@ -107,11 +111,12 @@ public class StoryCellModelTest {
 
     @Override
     public void linkTo(final Cell target, final Direction direction) {
+      directedLinks.put(direction, target);
     }
 
     @Override
     public Cell getLink(final Direction direction) {
-      return null;
+      return directedLinks.get(direction);
     }
 
     @Override
@@ -123,7 +128,6 @@ public class StoryCellModelTest {
   }
 
   private interface Direction {
-
   }
 
   private static class CellIsLinkedTo extends CustomTypeSafeMatcher<Cell> {
