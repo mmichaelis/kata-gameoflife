@@ -1,5 +1,6 @@
-package mmichaelis.kata.gameoflife;
+package mmichaelis.kata.gameoflife.evolution;
 
+import mmichaelis.kata.gameoflife.Cell;
 import org.hamcrest.CustomTypeSafeMatcher;
 import org.hamcrest.Matchers;
 

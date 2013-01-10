@@ -1,4 +1,4 @@
-package mmichaelis.kata.gameoflife;
+package mmichaelis.kata.gameoflife.evolution;
 
 import com.google.common.base.Predicate;
 import org.hamcrest.Matcher;

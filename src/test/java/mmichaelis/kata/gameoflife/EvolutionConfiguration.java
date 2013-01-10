@@ -1,5 +1,8 @@
 package mmichaelis.kata.gameoflife;
 
+import mmichaelis.kata.gameoflife.evolution.GiveBirthMatcher;
+import mmichaelis.kata.gameoflife.evolution.OverCrowdedMatcher;
+import mmichaelis.kata.gameoflife.evolution.UnderPopulationMatcher;
 import org.hamcrest.Matcher;
 
 /**

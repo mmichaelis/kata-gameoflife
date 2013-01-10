@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.Map;
 
-import static mmichaelis.kata.gameoflife.MatcherPredicate.toPredicate;
+import static mmichaelis.kata.gameoflife.evolution.MatcherPredicate.toPredicate;
 
 /**
  * @since 1.0
