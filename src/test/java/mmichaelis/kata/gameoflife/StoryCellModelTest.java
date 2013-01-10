@@ -1,8 +1,8 @@
 package mmichaelis.kata.gameoflife;
 
+import com.google.common.base.Objects;
 import mmichaelis.kata.test.support.References;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import static mmichaelis.kata.test.support.References.ref;
 import static org.junit.Assert.assertFalse;
@@ -27,8 +27,7 @@ public class StoryCellModelTest {
   }
 
   private void given_a_cell_C(final References.Reference<Cell> cellReference) {
-    final Cell mock = Mockito.mock(Cell.class);
-    cellReference.set(mock);
+    cellReference.set(new CellImpl());
   }
 
   private void then_cell_C_can_be_dead(final References.Reference<Cell> cellReference) {
@@ -47,5 +46,26 @@ public class StoryCellModelTest {
     void setAlive(boolean alive);
 
     boolean isAlive();
+  }
+
+  private static class CellImpl implements Cell {
+    private boolean alive;
+
+    @Override
+    public void setAlive(final boolean alive) {
+      this.alive = alive;
+    }
+
+    @Override
+    public boolean isAlive() {
+      return alive;
+    }
+
+    @Override
+    public String toString() {
+      return Objects.toStringHelper(this)
+              .add("alive", alive)
+              .toString();
+    }
   }
 }
