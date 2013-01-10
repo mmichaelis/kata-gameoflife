@@ -13,4 +13,6 @@ public interface Cell {
   Cell getLink(Direction direction);
 
   void evolve();
+
+  void unlinkAll();
 }

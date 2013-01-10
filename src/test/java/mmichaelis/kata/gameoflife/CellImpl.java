@@ -37,6 +37,11 @@ public class CellImpl implements Cell {
   }
 
   @Override
+  public void unlinkAll() {
+    directedLinks.clear();
+  }
+
+  @Override
   public String toString() {
     return Objects.toStringHelper(this)
             .add("alive", alive)
