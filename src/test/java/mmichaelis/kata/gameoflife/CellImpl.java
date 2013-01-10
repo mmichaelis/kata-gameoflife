@@ -33,6 +33,10 @@ public class CellImpl implements Cell {
   }
 
   @Override
+  public void evolve() {
+  }
+
+  @Override
   public String toString() {
     return Objects.toStringHelper(this)
             .add("alive", alive)

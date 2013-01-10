@@ -11,4 +11,6 @@ public interface Cell {
   void linkTo(Cell target, Direction direction);
 
   Cell getLink(Direction direction);
+
+  void evolve();
 }
