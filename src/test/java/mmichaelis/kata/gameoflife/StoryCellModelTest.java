@@ -5,9 +5,10 @@ import mmichaelis.kata.gameoflife.cell.CellImpl;
 import mmichaelis.kata.test.support.References;
 import org.junit.Test;
 
+import static mmichaelis.kata.gameoflife.cell.CellIsAlive.cellIsAlive;
+import static mmichaelis.kata.gameoflife.cell.CellIsDead.cellIsDead;
 import static mmichaelis.kata.test.support.References.ref;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertThat;
 
 /**
  * @since 1.0
@@ -39,13 +40,13 @@ public class StoryCellModelTest {
   private void then_cell_C_can_be_dead(final References.Reference<Cell> cellReference) {
     final Cell cell = cellReference.get();
     cell.setAlive(false);
-    assertFalse("Cell should be marked as being dead.", cell.isAlive());
+    assertThat(cell, cellIsDead());
   }
 
   private void then_cell_C_can_be_alive(final References.Reference<Cell> cellReference) {
     final Cell cell = cellReference.get();
     cell.setAlive(true);
-    assertTrue("Cell should be marked as being alive.", cell.isAlive());
+    assertThat(cell, cellIsAlive());
   }
 
 }
