@@ -12,6 +12,7 @@ import static mmichaelis.kata.gameoflife.CellIsAlive.cellIsAlive;
 public class EvolutionConfiguration {
   private Integer minimumLivingNeighbors;
   private Integer maximumLivingNeighbors;
+  private String minimumLivingNeighborsForBirth;
 
   public void setMinimumLivingNeighbors(final Integer minimumLivingNeighbors) {
     this.minimumLivingNeighbors = minimumLivingNeighbors;
@@ -35,6 +36,14 @@ public class EvolutionConfiguration {
 
   public Matcher<Cell> overCrowded() {
     return new OverCrowdedMatcher(maximumLivingNeighbors);
+  }
+
+  public void setMinimumLivingNeighborsForBirth(String minimumLivingNeighborsForBirth) {
+    this.minimumLivingNeighborsForBirth = minimumLivingNeighborsForBirth;
+  }
+
+  public String getMinimumLivingNeighborsForBirth() {
+    return minimumLivingNeighborsForBirth;
   }
 
   private static class UnderPopulationMatcher extends CustomTypeSafeMatcher<Cell> {

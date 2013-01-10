@@ -19,5 +19,6 @@
         scope="singleton">
     <property name="minimumLivingNeighbors" value="${minimum.living.neighbors}"/>
     <property name="maximumLivingNeighbors" value="${maximum.living.neighbors}"/>
+    <property name="minimumLivingNeighborsForBirth" value="${minimum.living.neighbors.for.birth}"/>
   </bean>
 </beans>
