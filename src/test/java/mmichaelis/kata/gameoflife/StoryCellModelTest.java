@@ -85,16 +85,6 @@ public class StoryCellModelTest {
     assertThat(cell, CellIsLinkedTo.cellIsLinkedTo(target, direction));
   }
 
-  private interface Cell {
-    void setAlive(boolean alive);
-
-    boolean isAlive();
-
-    void linkTo(Cell target, Direction direction);
-
-    Cell getLink(Direction direction);
-  }
-
   private static class CellImpl implements Cell {
     private boolean alive;
     private final Map<Direction, Cell> directedLinks = Maps.newHashMap();
