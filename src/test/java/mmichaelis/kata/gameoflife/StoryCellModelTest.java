@@ -127,9 +127,6 @@ public class StoryCellModelTest {
     }
   }
 
-  private interface Direction {
-  }
-
   private static class CellIsLinkedTo extends CustomTypeSafeMatcher<Cell> {
     private final Cell target;
     private final Direction direction;
