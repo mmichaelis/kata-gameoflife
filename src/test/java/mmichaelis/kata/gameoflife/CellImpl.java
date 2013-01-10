@@ -3,12 +3,18 @@ package mmichaelis.kata.gameoflife;
 import com.google.common.base.Objects;
 import com.google.common.collect.Maps;
 
+import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.Map;
 
 /**
 * @since 1.0
 */
+@Named("defaultCell")
 public class CellImpl implements Cell {
+  @Inject
+  private EvolutionConfiguration evolutionConfiguration;
+
   private boolean alive;
   private final Map<Direction, Cell> directedLinks = Maps.newHashMap();
 

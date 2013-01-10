@@ -4,10 +4,7 @@ import mmichaelis.kata.test.support.References;
 import org.hamcrest.CustomTypeSafeMatcher;
 import org.hamcrest.Factory;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.inject.Inject;
 
@@ -19,9 +16,7 @@ import static org.mockito.Mockito.mock;
 /**
  * @since 1.0
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:/test-context.xml")
-public class StoryCellEvolutionTest {
+public class StoryCellEvolutionTest extends BaseTestCase {
 
   /* =======[ S C E N A R I O S ]======= */
 
@@ -65,13 +60,15 @@ public class StoryCellEvolutionTest {
 
   @Inject
   private EvolutionConfiguration evolutionConfiguration;
+  @Inject
+  private CellProvider cellProvider;
 
   private void given_a_dead_cell_C(final References.Reference<Cell> cellReference) {
-    cellReference.set(new CellImpl());
+    cellReference.set(cellProvider.get());
   }
 
   private void given_a_living_cell_C(final References.Reference<Cell> cellReference) {
-    final Cell cell = new CellImpl();
+    final Cell cell = cellProvider.get();
     cell.setAlive(true);
     cellReference.set(cell);
     assumeTrue(cell.isAlive());

@@ -11,6 +11,9 @@
   <context:property-placeholder
           location="classpath:/test-context.properties"/>
 
+  <context:component-scan base-package="mmichaelis.kata"
+                          scope-resolver="org.springframework.context.annotation.Jsr330ScopeMetadataResolver"/>
+
   <bean id="evolutionConfiguration"
         class="mmichaelis.kata.gameoflife.EvolutionConfiguration"
         scope="singleton">
