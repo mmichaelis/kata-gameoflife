@@ -1,15 +1,19 @@
 package mmichaelis.kata.gameoflife;
 
 import com.google.common.base.Objects;
+import com.google.common.collect.Collections2;
 import com.google.common.collect.Maps;
+import org.hamcrest.Matcher;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.Map;
 
+import static mmichaelis.kata.gameoflife.MatcherPredicate.toPredicate;
+
 /**
-* @since 1.0
-*/
+ * @since 1.0
+ */
 @Named("defaultCell")
 public class CellImpl implements Cell {
   @Inject
@@ -39,7 +43,16 @@ public class CellImpl implements Cell {
   }
 
   @Override
+  public int countLinks(final Matcher<Cell> matcher) {
+    return Collections2.filter(directedLinks.values(), toPredicate(matcher)).size();
+  }
+
+  @Override
   public void evolve() {
+    if (evolutionConfiguration.overCrowded().matches(this)
+            || evolutionConfiguration.underPopulated().matches(this)) {
+      setAlive(false);
+    }
   }
 
   @Override

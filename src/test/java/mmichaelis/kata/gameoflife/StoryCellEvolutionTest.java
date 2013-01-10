@@ -1,8 +1,6 @@
 package mmichaelis.kata.gameoflife;
 
 import mmichaelis.kata.test.support.References;
-import org.hamcrest.CustomTypeSafeMatcher;
-import org.hamcrest.Factory;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -117,19 +115,4 @@ public class StoryCellEvolutionTest extends BaseTestCase {
     assertThat(cellReference.get(), CellIsDead.cellIsDead());
   }
 
-  private static class CellIsDead extends CustomTypeSafeMatcher<Cell> {
-    private CellIsDead() {
-      super("cell should be dead");
-    }
-
-    @Override
-    protected boolean matchesSafely(final Cell item) {
-      return !item.isAlive();
-    }
-
-    @Factory
-    public static CellIsDead cellIsDead() {
-      return new CellIsDead();
-    }
-  }
 }

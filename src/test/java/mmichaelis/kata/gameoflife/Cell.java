@@ -1,5 +1,7 @@
 package mmichaelis.kata.gameoflife;
 
+import org.hamcrest.Matcher;
+
 /**
 * @since 1.0
 */
@@ -15,4 +17,6 @@ public interface Cell {
   void evolve();
 
   void unlinkAll();
+
+  int countLinks(Matcher<Cell> matcher);
 }
