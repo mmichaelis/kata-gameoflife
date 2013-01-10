@@ -12,6 +12,9 @@ import static org.junit.Assert.assertTrue;
  * @since 1.0
  */
 public class StoryCellModelTest {
+
+  /* =======[ S C E N A R I O S ]======= */
+
   @Test
   public void scenario_cell_can_be_dead() throws Exception {
     final References.Reference<Cell> cellReference = ref();
@@ -25,6 +28,8 @@ public class StoryCellModelTest {
     given_a_cell_C(cellReference);
     then_cell_C_can_be_alive(cellReference);
   }
+
+  /* =======[ S T E P S ]======= */
 
   private void given_a_cell_C(final References.Reference<Cell> cellReference) {
     cellReference.set(new CellImpl());
