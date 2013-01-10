@@ -15,7 +15,6 @@ import static mmichaelis.kata.gameoflife.cell.CellIsDead.cellIsDead;
 import static mmichaelis.kata.test.support.References.ref;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assume.assumeThat;
-import static org.junit.Assume.assumeTrue;
 import static org.mockito.Mockito.mock;
 
 /**
