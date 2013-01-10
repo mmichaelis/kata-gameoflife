@@ -6,6 +6,8 @@ import org.mockito.Mockito;
 
 import javax.inject.Inject;
 
+import static mmichaelis.kata.gameoflife.CellIsAlive.cellIsAlive;
+import static mmichaelis.kata.gameoflife.CellIsDead.cellIsDead;
 import static mmichaelis.kata.test.support.References.ref;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assume.assumeTrue;
@@ -52,6 +54,18 @@ public class StoryCellEvolutionTest extends BaseTestCase {
     given_a_living_cell_C(cellReference);
     given_maximum_link_count_N(linkCountReference);
     then_cell_C_dies_with_more_than_N_living_neighbors(cellReference, linkCountReference);
+  }
+
+  @Test
+  public void scenario_living_cell_stays_alive_on_evolution_with_enough_neighboring_cells() throws Exception {
+    final References.Reference<Cell> cellReference = ref();
+    final References.Reference<Integer> maximumReference = ref();
+    final References.Reference<Integer> minimumReference = ref();
+
+    given_a_living_cell_C(cellReference);
+    given_minimum_link_count_N(minimumReference);
+    given_maximum_link_count_N(maximumReference);
+    then_cell_C_stays_alive_with_enough_living_neighbors(cellReference, minimumReference, maximumReference);
   }
 
   /* =======[ S T E P S ]======= */
@@ -111,8 +125,20 @@ public class StoryCellEvolutionTest extends BaseTestCase {
     }
   }
 
+  private void then_cell_C_stays_alive_with_enough_living_neighbors(final References.Reference<Cell> cellReference, final References.Reference<Integer> minimumReference, final References.Reference<Integer> maximumReference) {
+    for (int i = minimumReference.get(); i <= maximumReference.get(); i++) {
+      when_cell_C_is_linked_to_N_living_cells(cellReference, i);
+      when_cell_C_performs_an_evolution_step(cellReference);
+      then_cell_C_stays_alive(cellReference);
+    }
+  }
+
+  private void then_cell_C_stays_alive(final References.Reference<Cell> cellReference) {
+    assertThat(cellReference.get(), cellIsAlive());
+  }
+
   private void then_cell_C_dies(final References.Reference<Cell> cellReference) {
-    assertThat(cellReference.get(), CellIsDead.cellIsDead());
+    assertThat(cellReference.get(), cellIsDead());
   }
 
 }
