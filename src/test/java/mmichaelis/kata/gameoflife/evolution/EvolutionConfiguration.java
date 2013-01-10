@@ -3,6 +3,8 @@ package mmichaelis.kata.gameoflife.evolution;
 import mmichaelis.kata.gameoflife.cell.Cell;
 import org.hamcrest.Matcher;
 
+import javax.annotation.PostConstruct;
+
 /**
  * @since 1.0
  */
@@ -10,6 +12,9 @@ public class EvolutionConfiguration {
   private Integer minimumLivingNeighbors;
   private Integer maximumLivingNeighbors;
   private Integer minimumLivingNeighborsForBirth;
+  private UnderPopulationMatcher underPopulationMatcher;
+  private OverCrowdedMatcher overCrowdedMatcher;
+  private GiveBirthMatcher giveBirthMatcher;
 
   public void setMinimumLivingNeighbors(final Integer minimumLivingNeighbors) {
     this.minimumLivingNeighbors = minimumLivingNeighbors;
@@ -27,16 +32,23 @@ public class EvolutionConfiguration {
     return maximumLivingNeighbors;
   }
 
+  @PostConstruct
+  public void init() {
+    underPopulationMatcher = new UnderPopulationMatcher(minimumLivingNeighbors);
+    overCrowdedMatcher = new OverCrowdedMatcher(maximumLivingNeighbors);
+    giveBirthMatcher = new GiveBirthMatcher(minimumLivingNeighborsForBirth, maximumLivingNeighbors);
+  }
+
   public Matcher<Cell> underPopulated() {
-    return new UnderPopulationMatcher(minimumLivingNeighbors);
+    return underPopulationMatcher;
   }
 
   public Matcher<Cell> overCrowded() {
-    return new OverCrowdedMatcher(maximumLivingNeighbors);
+    return overCrowdedMatcher;
   }
 
   public Matcher<Cell> givingBirth() {
-    return new GiveBirthMatcher(minimumLivingNeighborsForBirth, maximumLivingNeighbors);
+    return giveBirthMatcher;
   }
 
   public void setMinimumLivingNeighborsForBirth(final Integer minimumLivingNeighborsForBirth) {
