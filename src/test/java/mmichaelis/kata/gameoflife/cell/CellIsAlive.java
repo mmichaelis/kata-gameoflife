@@ -4,10 +4,10 @@ import org.hamcrest.CustomTypeSafeMatcher;
 import org.hamcrest.Factory;
 
 /**
-* @since 1.0
-*/
+ * @since 1.0
+ */
 public class CellIsAlive extends CustomTypeSafeMatcher<Cell> {
-  CellIsAlive() {
+  public CellIsAlive() {
     super("cell is alive");
   }
 
