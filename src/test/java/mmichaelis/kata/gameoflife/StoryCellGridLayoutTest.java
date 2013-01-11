@@ -3,6 +3,7 @@ package mmichaelis.kata.gameoflife;
 import mmichaelis.kata.gameoflife.cell.Cell;
 import mmichaelis.kata.test.support.References;
 import org.hamcrest.CustomTypeSafeMatcher;
+import org.hamcrest.Description;
 import org.hamcrest.Factory;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,15 +30,6 @@ public class StoryCellGridLayoutTest {
     then_cell_C_can_be_placed_on_grid_G(cellReference, gridReference);
   }
 
-  private void then_cell_C_can_be_placed_on_grid_G(final References.Reference<Cell> cellReference, final References.Reference<Grid<Cell>> gridReference) {
-    final Grid<Cell> grid = gridReference.get();
-    final int x = 0;
-    final int y = 0;
-    grid.put(x, y, cellReference.get());
-    assertThat(cellReference.get(), IsAt.isAt(grid, x, y));
-  }
-
-
   /* =======[ S T E P S ]======= */
 
   @Mock
@@ -54,6 +46,14 @@ public class StoryCellGridLayoutTest {
 
   private void given_a_grid_G(final References.Reference<Grid<Cell>> gridReference) {
     gridReference.set(cellGrid);
+  }
+
+  private void then_cell_C_can_be_placed_on_grid_G(final References.Reference<Cell> cellReference, final References.Reference<Grid<Cell>> gridReference) {
+    final Grid<Cell> grid = gridReference.get();
+    final int x = 0;
+    final int y = 0;
+    grid.put(x, y, cellReference.get());
+    assertThat(cellReference.get(), IsAt.isAt(grid, x, y));
   }
 
   private interface Grid<T> {
@@ -77,6 +77,18 @@ public class StoryCellGridLayoutTest {
     @Override
     protected boolean matchesSafely(final T item) {
       return grid.at(x, y) == item;
+    }
+
+    @Override
+    protected void describeMismatchSafely(final T item, final Description mismatchDescription) {
+      mismatchDescription.appendText("element ")
+              .appendValue(item)
+              .appendText(" not at (")
+              .appendValue(x)
+              .appendText(",")
+              .appendValue(y)
+              .appendText(") on ")
+              .appendValue(grid);
     }
 
     @Factory
