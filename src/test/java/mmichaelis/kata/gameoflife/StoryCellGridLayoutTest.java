@@ -1,5 +1,7 @@
 package mmichaelis.kata.gameoflife;
 
+import com.google.common.collect.ArrayTable;
+import com.google.common.collect.ContiguousSet;
 import mmichaelis.kata.gameoflife.cell.Cell;
 import mmichaelis.kata.test.support.References;
 import org.hamcrest.CustomTypeSafeMatcher;
@@ -10,6 +12,9 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import static com.google.common.collect.ContiguousSet.create;
+import static com.google.common.collect.DiscreteDomain.integers;
+import static com.google.common.collect.Range.closed;
 import static mmichaelis.kata.test.support.References.ref;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
@@ -40,12 +45,12 @@ public class StoryCellGridLayoutTest {
     MockitoAnnotations.initMocks(this);
   }
 
-  private void given_a_cell_C(final References.Reference<Cell> cell1Reference) {
-    cell1Reference.set(mock(Cell.class));
+  private void given_a_cell_C(final References.Reference<Cell> cellReference) {
+    cellReference.set(mock(Cell.class));
   }
 
   private void given_a_grid_G(final References.Reference<Grid<Cell>> gridReference) {
-    gridReference.set(cellGrid);
+    gridReference.set(new GridImpl<Cell>(1, 1));
   }
 
   private void then_cell_C_can_be_placed_on_grid_G(final References.Reference<Cell> cellReference, final References.Reference<Grid<Cell>> gridReference) {
@@ -60,6 +65,26 @@ public class StoryCellGridLayoutTest {
     void put(int x, int y, T cell);
 
     T at(int x, int y);
+  }
+
+  private class GridImpl<T> implements Grid<T> {
+    private final ArrayTable<Integer, Integer, T> backingTable;
+
+    private GridImpl(final int sizeX, final int sizeY) {
+      final ContiguousSet<Integer> rowKeys = create(closed(0, sizeY), integers());
+      final ContiguousSet<Integer> columnKeys = create(closed(0, sizeX), integers());
+      backingTable = ArrayTable.create(rowKeys, columnKeys);
+    }
+
+    @Override
+    public T at(final int x, final int y) {
+      return backingTable.get(y, x);
+    }
+
+    @Override
+    public void put(final int x, final int y, final T cell) {
+      backingTable.put(y, x, cell);
+    }
   }
 
   private static class IsAt<T> extends CustomTypeSafeMatcher<T> {
