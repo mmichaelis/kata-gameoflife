@@ -3,7 +3,6 @@ package mmichaelis.kata.gameoflife;
 import mmichaelis.kata.gameoflife.cell.Cell;
 import mmichaelis.kata.gameoflife.cell.CellProvider;
 import mmichaelis.kata.gameoflife.evolution.EvolutionConfiguration;
-import mmichaelis.kata.gameoflife.link.Direction;
 import mmichaelis.kata.test.support.References;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -122,10 +121,9 @@ public class StoryCellEvolutionTest extends BaseTestCase {
     final Cell cell = cellReference.get();
     cell.unlinkAll();
     for (int i = 0; i < linkCount; i++) {
-      final Direction direction = mock(Direction.class);
       final Cell target = mock(Cell.class);
       Mockito.when(target.isAlive()).thenReturn(true);
-      cell.linkTo(target, direction);
+      cell.linkTo(target);
     }
   }
 

@@ -2,14 +2,13 @@ package mmichaelis.kata.gameoflife.cell;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.Collections2;
-import com.google.common.collect.Maps;
-import mmichaelis.kata.gameoflife.link.Direction;
+import com.google.common.collect.Sets;
 import mmichaelis.kata.gameoflife.evolution.EvolutionConfiguration;
 import org.hamcrest.Matcher;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.Map;
+import java.util.Collection;
 
 import static mmichaelis.kata.gameoflife.evolution.MatcherPredicate.toPredicate;
 
@@ -22,7 +21,7 @@ public class CellImpl implements Cell {
   private EvolutionConfiguration evolutionConfiguration;
 
   private boolean alive;
-  private final Map<Direction, Cell> directedLinks = Maps.newHashMap();
+  private final Collection<Cell> neighbors = Sets.newHashSet();
 
   @Override
   public void setAlive(final boolean alive) {
@@ -35,18 +34,18 @@ public class CellImpl implements Cell {
   }
 
   @Override
-  public void linkTo(final Cell target, final Direction direction) {
-    directedLinks.put(direction, target);
-  }
-
-  @Override
-  public Cell getLink(final Direction direction) {
-    return directedLinks.get(direction);
-  }
-
-  @Override
   public int countLinks(final Matcher<Cell> matcher) {
-    return Collections2.filter(directedLinks.values(), toPredicate(matcher)).size();
+    return Collections2.filter(neighbors, toPredicate(matcher)).size();
+  }
+
+  @Override
+  public Collection<Cell> getNeighbors() {
+    return Sets.newHashSet(neighbors);
+  }
+
+  @Override
+  public void linkTo(final Cell target) {
+    neighbors.add(target);
   }
 
   @Override
@@ -62,7 +61,7 @@ public class CellImpl implements Cell {
 
   @Override
   public void unlinkAll() {
-    directedLinks.clear();
+    neighbors.clear();
   }
 
   @Override
